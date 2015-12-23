@@ -1,4 +1,5 @@
 import ast
+from Queue import Queue
 
 class node:
     node_count = 0
@@ -28,23 +29,20 @@ class node:
             if self.right:
                 self.right.inOrder()        
     def breadthFirstOrder(self):
-        a = []
-        a.append(self)
-        while (len(a)!=0):
-            k = a[0]
-            k.displayNode()
-            a.remove(k)
-            #print k.val
-            if k.left:
-                a.append(k.left)
-            if k.right:
-                a.append(self.right)
-            
+        a = [self]
+        while a:
+            b = list()
+            for n in a:
+                print n.val
+                if n.left: b.append(n.left)
+                if n.right: b.append(n.right)
+            a = b;
 root = node(10)
 root.left = node(15)
 root.right = node(20)
 root.left.left = node(21)
 root.left.right = node(26)
+root.left.left.right = node(31)
 print "number of nodes: " + str(node.node_count)
 print 'preOrder'
 root.preOrder()
