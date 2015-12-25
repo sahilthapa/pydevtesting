@@ -37,6 +37,7 @@ class node:
                 if n.left: b.append(n.left)
                 if n.right: b.append(n.right)
             a = b;
+
 root = node(10)
 root.left = node(15)
 root.right = node(20)

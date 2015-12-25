@@ -63,6 +63,39 @@ def mergeSort(alist):
             k=k+1
     print("Merging ",alist)   
     
+def quickSort(alist):
+    quickSortHelper(alist,0,len(alist)-1)
+    print alist
+
+def quickSortHelper(alist,first,last):
+    if first<last:
+        splitpoint = partition(alist,first,last)
+        quickSortHelper(alist,first,splitpoint-1)
+        quickSortHelper(alist,splitpoint+1,last)
+
+
+def partition(alist,first,last):
+    pivotvalue = alist[first]
+    leftmark = first+1
+    rightmark = last
+    done = False
+    while not done:
+        while leftmark <= rightmark and alist[leftmark] <= pivotvalue:
+            leftmark = leftmark + 1
+        while alist[rightmark] >= pivotvalue and rightmark >= leftmark:
+            rightmark = rightmark -1
+        if rightmark < leftmark:
+            done = True
+        else:
+            temp = alist[leftmark]
+            alist[leftmark] = alist[rightmark]
+            alist[rightmark] = temp
+
+    temp = alist[first]
+    alist[first] = alist[rightmark]
+    alist[rightmark] = temp
+    return rightmark
+
 inp = raw_input("Enter element (add * to quit):")
 y = []
 while (inp != '*'):
@@ -70,7 +103,7 @@ while (inp != '*'):
     print y
     inp = raw_input("Enter element (add * to quit):")
 print "User Input:" 
-print y 
+print (y,' with length',len(y)) 
 print "BubbleSort Output:"
 bubbleSort(y)
 print "SelectionSort Output:"
@@ -79,3 +112,5 @@ print "InsertionSort Output:"
 selectionSort(y)
 print "MergeSort Output:"
 mergeSort(y)
+print "QuickSort Output:"
+quickSort(y)
