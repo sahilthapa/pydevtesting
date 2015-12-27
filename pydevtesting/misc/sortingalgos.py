@@ -1,5 +1,6 @@
 ## BubbleSort intuition: The list is sorted by sub sorting till sub index level k
 ## and iterating it till end of list 
+import datastructures
 def bubbleSort(a):
     for k in range(len(a)-1,0,-1):
         for j in range(k):
@@ -96,6 +97,7 @@ def partition(alist,first,last):
     alist[rightmark] = temp
     return rightmark
 
+listFuncs()
 inp = raw_input("Enter element (add * to quit):")
 y = []
 while (inp != '*'):
