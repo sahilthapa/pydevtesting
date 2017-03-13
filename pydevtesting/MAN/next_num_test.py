@@ -1,5 +1,5 @@
 import unittest
-from next_num import next_num, error_msg_from_code
+from next_num import next_num, error_msg_from_code, generate_next_num, num_choice, ST_SENTINEL, SUCCESS_CODE
 
 class next_num_test(unittest.TestCase):
 
@@ -22,10 +22,21 @@ class next_num_test(unittest.TestCase):
         self.assertEqual("Input probabilities need to be [int, float]", errmsg, "")
         errmsg = error_msg_from_code(2)
         self.assertNotEqual("", errmsg, "Success code has empty string as error code")
-        self.assertEqual("Input probabilities has a negative value", errmsg, "")
+        self.assertEqual("Input probabilities cannot be negative or greater than 1 in value", errmsg, "")
         errmsg = error_msg_from_code(3)
         self.assertEqual("Probabilities do not sum up to 1", errmsg, "")
-        
+    
+    def test_num_choice(self):
+        a = num_choice([1, 1], [0.36, 0.64])
+        self.assertEqual(1, 1, "Function should return basic boundary data")
+    
+    def test_generate_next_num(self):
+        a, b = generate_next_num([1, 1], [0.36, 0.63])  
+        self.assertEqual(b, 3, "Errocode 3")
+        self.assertEqual(a, ST_SENTINEL, "Sentinel Value")
+        a, b = generate_next_num([1, 2], [0.36, 0.64])  
+        self.assertEqual(b, SUCCESS_CODE, "Success Code")
+        self.assertEqual(a in [1, 2], True, "Value returned from nums list")
         
 if __name__ == "__main__":
     next_num_test.main()
