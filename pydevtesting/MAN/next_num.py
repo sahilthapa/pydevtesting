@@ -49,11 +49,14 @@ def error_msg_from_code(code):
 def num_choice(nums, prob):
     x = np.random.random()
     cpr = 0.0
-    for n, npr in zip(nums, prob):
-        cpr += npr
-        if x < cpr: 
-            break
-    return n         
+    try:
+        for n, npr in zip(nums, prob):
+            cpr += npr
+            if x < cpr: 
+                break
+        return n  
+    except ValueError as e:
+        raise ValueError(e)     
     
 if __name__ == "__main__":
     #print ( generate_num_choice([1,2,3],[0.36, 0.63, 0.01]))
