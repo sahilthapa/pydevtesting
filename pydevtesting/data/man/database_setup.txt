@@ -1,0 +1,18 @@
+insert into product_st values (102, '(next year) in Review (preorder)', 21.95, '2018-03-15');
+insert into product_st values (103, 'Learn Python in Ten Minutes', 2.15, '2016-12-15');
+insert into product_st values (104, 'sports almanac (1999-2049)', 3.38,'20-15-03-10');
+insert into product_st values (105, 'finance for dummies', 84.99, '2016-03-12');
+
+insert into orders_st values (1000, 101, 1, 90.00, '2017-01-12');
+insert into orders_st values (1001, 103, 1, 1.15, '2017-02-02');
+insert into orders_st values (1002, 101, 10, 90.00, '2016-04-12');
+insert into orders_st values (1003, 104, 11, 3.38, '2016-10-12');
+insert into orders_st values (1004, 105, 11, 501.33, '2015-03-12');
+
+# Write an sql query to find books that have sold fewer than 10 copies in the last year, excluding books that have been available for less than 1 month.
+select pst.name from product_st as pst left join 
+(
+select product_id, sum(quantity) as _copies from orders_st where dispatch_date < DATE('now') and dispatch_date > DATE('now','-1 years') group by product_id
+) as ost 
+on pst.product_id = ost.product_id 
+where pst.available_from < DATE('now','-1 month') and ost._copies < 10
