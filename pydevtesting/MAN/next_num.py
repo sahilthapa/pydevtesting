@@ -6,22 +6,23 @@ SUCCESS_CODE = 100
 
 def generate_next_num(nums, nums_prob):
     res = ST_SENTINEL
-    err_code, err_msg = error_msg_from_code(SUCCESS_CODE)
-    if (len(nums) != len(nums_prob)):
-        err_code, err_msg = error_msg_from_code(0)
-    elif (len(nums) == 0 or len(nums_prob)==0):
-        err_code, err_msg = error_msg_from_code(4)
-    elif not all(isinstance(k, (int, float)) for k in nums_prob):
-        err_code, err_msg = error_msg_from_code(1)
-    elif (any(k <= 0 for k in nums_prob)) or (any(k > 1 for k in nums_prob)):
-        err_code, err_msg = error_msg_from_code(2)
-    elif abs(sum(nums_prob)-1.0) > 1.0e-5:
-        err_code, err_msg = error_msg_from_code(3)
-    else:  
-        try:
+    try: 
+        err_code, err_msg = error_msg_from_code(-1)
+        if (len(nums) != len(nums_prob)):
+            err_code, err_msg = error_msg_from_code(0)
+        elif (len(nums) == 0 or len(nums_prob)==0):
+            err_code, err_msg = error_msg_from_code(4)
+        elif not all(isinstance(k, (int, float)) for k in nums_prob):
+            err_code, err_msg = error_msg_from_code(1)
+        elif (any(k <= 0 for k in nums_prob)) or (any(k > 1 for k in nums_prob)):
+            err_code, err_msg = error_msg_from_code(2)
+        elif abs(sum(nums_prob)-1.0) > 1.0e-5:
+            err_code, err_msg = error_msg_from_code(3)
+        else:  
             res = num_choice(nums, nums_prob)
-        except Exception as e: 
-            err_code, err_msg = -1, e
+            err_code, err_msg = error_msg_from_code(SUCCESS_CODE)
+    except Exception as e: 
+        err_code, err_msg = -1, e
     return res, err_code, err_msg     
   
 
@@ -33,7 +34,8 @@ def next_num(nums, nums_prob):
         raise ValueError("ERR_CODE {}: {}".format(str(errcode), errmsg))
         
 def error_msg_from_code(code):
-    code_to_msg = {-1: "Unknown",
+    code_to_msg = {
+                   -1: "Unknown",
                    0: "Length of nums and num of probs does not match",
                    1: "Input probabilities need to be [int, float]",
                    2: "Input probabilities cannot be negative or greater than 1 in value",
