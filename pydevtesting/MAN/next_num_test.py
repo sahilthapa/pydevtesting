@@ -40,6 +40,7 @@ class next_num_test(unittest.TestCase):
     def test_num_choice(self):
         a = num_choice([1, 1], [0.36, 0.64])
         self.assertEqual(1, 1, "Function should return basic boundary data")
+        self.assertRaises(Exception, num_choice, [1, -1], [])
     
     def test_generate_next_num(self):
         a, b, c = generate_next_num([1, 1], [0.36, 0.63])  

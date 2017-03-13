@@ -1,5 +1,5 @@
 import numpy as np 
-
+import sys
 
 ST_SENTINEL= None
 SUCCESS_CODE = 100
@@ -20,10 +20,11 @@ def generate_next_num(nums, nums_prob):
     else:  
         try:
             res = num_choice(nums, nums_prob)
-        except ValueError as e: 
+        except Exception as e: 
             err_code, err_msg = -1, e
     return res, err_code, err_msg     
   
+
 def next_num(nums, nums_prob):
     num, errcode, errmsg = generate_next_num(nums, nums_prob)
     if errcode == SUCCESS_CODE: 
@@ -55,8 +56,8 @@ def num_choice(nums, prob):
             if x < cpr: 
                 break
         return n  
-    except ValueError as e:
-        raise ValueError(e)     
+    except Exception as e:
+        raise Exception("Issue Handling nums and prob lists in num_choice: {}".format(sys.exc_info()[0]))    
     
 if __name__ == "__main__":
     #print ( generate_num_choice([1,2,3],[0.36, 0.63, 0.01]))
