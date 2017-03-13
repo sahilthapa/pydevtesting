@@ -1,0 +1,6 @@
+select pst.name from product as pst left join 
+(
+select product_id, sum(quantity) as _copies from orders where dispatch_date < DATE('now') and dispatch_date > DATE('now','-1 years') group by product_id
+) as ost 
+on pst.product_id = ost.product_id 
+where pst.available_from < DATE('now','-1 month') and ost._copies < 10
