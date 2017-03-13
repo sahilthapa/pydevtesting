@@ -25,7 +25,6 @@ def generate_next_num(nums, nums_prob):
         err_code, err_msg = -1, e
     return res, err_code, err_msg     
   
-
 def next_num(nums, nums_prob):
     num, errcode, errmsg = generate_next_num(nums, nums_prob)
     if errcode == SUCCESS_CODE: 
