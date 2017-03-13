@@ -65,5 +65,5 @@ if __name__ == "__main__":
         else: 
             u+=1
             
-    print(j,i,u)
+    print("Occurrence Count for [1, 2 ,3] with prob: [0.3, 0.6, 0.1] :", j,i,u)
         
