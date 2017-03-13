@@ -23,18 +23,18 @@ class next_num_test(unittest.TestCase):
         self.assertTrue(i > j, "Over 100 samples more 2s than 1s")
         
     def test_error_msg_from_code(self):
-        errmsg = error_msg_from_code(-1)
+        errcode, errmsg = error_msg_from_code(-1)
         self.assertEqual("Unknown", errmsg, "-1 is Unknown")
-        errmsg = error_msg_from_code(100)
+        errcode, errmsg = error_msg_from_code(100)
         self.assertEqual("", errmsg, "Success code has empty string as error code")
-        errmsg = error_msg_from_code(0)
+        errcode, errmsg = error_msg_from_code(0)
         self.assertEqual("Length of nums and num of probs does not match", errmsg)
-        errmsg = error_msg_from_code(1)
+        errcode, errmsg = error_msg_from_code(1)
         self.assertEqual("Input probabilities need to be [int, float]", errmsg, "")
-        errmsg = error_msg_from_code(2)
+        errcode, errmsg = error_msg_from_code(2)
         self.assertNotEqual("", errmsg, "Success code has empty string as error code")
         self.assertEqual("Input probabilities cannot be negative or greater than 1 in value", errmsg, "")
-        errmsg = error_msg_from_code(3)
+        errcode, errmsg = error_msg_from_code(3)
         self.assertEqual("Probabilities do not sum up to 1", errmsg, "")
     
     def test_num_choice(self):

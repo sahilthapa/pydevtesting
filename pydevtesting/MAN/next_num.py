@@ -6,16 +6,17 @@ SUCCESS_CODE = 100
 
 def generate_next_num(nums, nums_prob):
     res = ST_SENTINEL
-    err_code = SUCCESS_CODE
-    err_msg = error_msg_from_code(err_code)
+    err_code, err_msg = error_msg_from_code(SUCCESS_CODE)
     if (len(nums) != len(nums_prob)):
-        err_code, err_msg = 0, error_msg_from_code(0)
+        err_code, err_msg = error_msg_from_code(0)
+    elif (len(nums) == 0 or len(nums_prob)==0):
+        err_code, err_msg = error_msg_from_code(4)
     elif not all(isinstance(k, (int, float)) for k in nums_prob):
-        err_code, err_msg = 1, error_msg_from_code(1)
+        err_code, err_msg = error_msg_from_code(1)
     elif (any(k <= 0 for k in nums_prob)) or (any(k > 1 for k in nums_prob)):
-        err_code, err_msg = 2, error_msg_from_code(2)
+        err_code, err_msg = error_msg_from_code(2)
     elif abs(sum(nums_prob)-1.0) > 1.0e-5:
-        err_code, err_msg = 3, error_msg_from_code(3)
+        err_code, err_msg = error_msg_from_code(3)
     else:  
         try:
             res = num_choice(nums, nums_prob)
@@ -36,11 +37,12 @@ def error_msg_from_code(code):
                    1: "Input probabilities need to be [int, float]",
                    2: "Input probabilities cannot be negative or greater than 1 in value",
                    3: "Probabilities do not sum up to 1",
+                   4: "Length 0 of nums and prob of nums lists",
                    100: ""
                 }
       
     if code in code_to_msg.keys():
-        return code_to_msg.get(code)
+        return code, code_to_msg.get(code)
     else: 
         raise ValueError("No message set for code:{}. Allowed Error codes: {}".format(code, str(code_to_msg.keys())))
 
