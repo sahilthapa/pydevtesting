@@ -11,7 +11,7 @@ def generate_next_num(nums, nums_prob):
         err_code = 0
     elif not all(isinstance(k, (int, float)) for k in nums_prob):
         err_code = 1
-    elif (any(k <= 0 for k in nums_prob)) or (any(k >= 1 for k in nums_prob)):
+    elif (any(k <= 0 for k in nums_prob)) or (any(k > 1 for k in nums_prob)):
         err_code = 2
     elif sum(nums_prob) != 1:
         err_code = 3
