@@ -10,6 +10,17 @@ class next_num_test(unittest.TestCase):
         self.assertRaises(ValueError, next_num, [1, -1], [0.4])
         nnum = next_num([1, 1], [0.2, 0.8])
         self.assertTrue(nnum==1, "Next Num matches 1")
+        j,i,u = 0, 0, 0
+        for k in range(100):
+            nnum = next_num([1, 2 ,3], [0.3, 0.6, 0.1])
+            if nnum == 1:
+                j+=1
+            elif nnum ==2: 
+                i+=1
+            else: 
+                u+=1
+        self.assertTrue(j > u, "Over 100 samples more 1s than 3s")
+        self.assertTrue(i > j, "Over 100 samples more 2s than 1s")
         
     def test_error_msg_from_code(self):
         errmsg = error_msg_from_code(-1)
@@ -31,10 +42,10 @@ class next_num_test(unittest.TestCase):
         self.assertEqual(1, 1, "Function should return basic boundary data")
     
     def test_generate_next_num(self):
-        a, b = generate_next_num([1, 1], [0.36, 0.63])  
+        a, b, c = generate_next_num([1, 1], [0.36, 0.63])  
         self.assertEqual(b, 3, "Errocode 3")
         self.assertEqual(a, ST_SENTINEL, "Sentinel Value")
-        a, b = generate_next_num([1, 2], [0.36, 0.64])  
+        a, b, c = generate_next_num([1, 2], [0.36, 0.64])  
         self.assertEqual(b, SUCCESS_CODE, "Success Code")
         self.assertEqual(a in [1, 2], True, "Value returned from nums list")
         
